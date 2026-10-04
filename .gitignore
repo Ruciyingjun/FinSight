@@ -1,0 +1,12 @@
+# 项目级 Git 忽略规则：排除构建产物、本地依赖缓存、运行数据和 IDE 临时文件。
+target/
+.m2/
+data/
+*.class
+*.log
+.DS_Store
+
+### IntelliJ IDEA ###
+.idea/workspace.xml
+.idea/shelf/
+*.iws

@@ -1,0 +1,45 @@
+# 测试环境配置：使用内存数据库和 target 下的隔离文档存储目录。
+spring:
+  datasource:
+    url: jdbc:h2:mem:financial-research-test;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+app:
+  document-processing:
+    workers: 2
+    queue-capacity: 20
+  storage:
+    root: target/test-documents
+  chunking:
+    max-characters: 100
+    overlap-characters: 20
+  embedding:
+    dimensions: 128
+    model: local-hashing-test-v1
+  retrieval:
+    candidate-multiplier: 4
+    minimum-candidates: 20
+    relative-threshold: 0.35
+    absolute-threshold: 0.40
+    minimum-query-coverage: 0.20
+    maximum-context-characters: 6000
+  ocr:
+    enabled: false
+    executable: tesseract
+    languages: chi_sim+eng
+    dpi: 200
+    timeout-seconds: 10
+    minimum-text-characters: 5
+  llm:
+    enabled: false
+    endpoint: http://localhost/unused
+    api-key: ""
+    model: test-model
+    timeout-seconds: 5
+    max-tokens: 200
+    temperature: 0

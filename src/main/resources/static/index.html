@@ -1,0 +1,105 @@
+<!-- 前端入口：提供金融研报 RAG 系统的对话、文档管理和引用查看界面。 -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="金融研报智能检索与问答系统">
+  <title>FinSight · 金融研报 RAG</title>
+  <link rel="stylesheet" href="/styles.css?v=20261002-7">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div><strong>FinSight</strong><span>Research AI</span></div>
+      </div>
+
+      <nav class="primary-nav" aria-label="主导航">
+        <button class="nav-item active" data-view="chat" type="button"><span>◫</span> 智能问答</button>
+        <button class="nav-item" data-view="dataset" type="button"><span>▦</span> 文档资料库</button>
+      </nav>
+
+      <div class="history-heading"><span>最近对话</span><button id="historyNewChatButton" title="创建新对话" aria-label="创建新对话" type="button">＋</button></div>
+      <div id="historyList" class="history-list"></div>
+
+      <div class="sidebar-footer">
+        <div class="avatar">研</div>
+        <div><strong>Research User</strong><span id="serviceState">正在检查服务…</span></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">金融资料智能问答</h1>
+          <p id="pageSubtitle">基于已上传资料回答，并提供可追溯的原文引用</p>
+        </div>
+        <div class="top-actions">
+          <span id="databaseBadge" class="status-pill"><i></i> 服务检查中</span>
+          <button id="mobileDocumentsButton" class="icon-button mobile-only" type="button">文档</button>
+        </div>
+      </header>
+
+      <section id="chatView" class="chat-view">
+        <div id="messageList" class="message-list" aria-live="polite"></div>
+
+        <div class="composer-wrap">
+          <div id="scopeBanner" class="scope-banner">正在使用全部已就绪文档</div>
+          <form id="questionForm" class="composer">
+            <textarea id="questionInput" rows="1" maxlength="500" placeholder="询问保险责任、市场数据、合同条款……" required></textarea>
+            <div class="composer-actions">
+              <span>Enter 发送 · Shift + Enter 换行</span>
+              <button id="sendButton" type="submit" aria-label="发送问题">➤</button>
+            </div>
+          </form>
+          <p class="disclaimer">答案由 AI 基于上传资料生成，请结合原文核验，不构成投资或保险建议。</p>
+        </div>
+      </section>
+
+      <section id="datasetView" class="dataset-view hidden">
+        <div class="dataset-toolbar">
+          <div><h2>文档资料库</h2><p>上传后由后台自动解析并建立索引，完成后即可用于智能问答。</p></div>
+          <button id="datasetUploadButton" class="primary-button" type="button">＋ 上传文档</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>文件名</th><th>状态</th><th>大小</th><th>上传时间</th><th>操作</th></tr></thead>
+            <tbody id="datasetTableBody"></tbody>
+          </table>
+          <div id="datasetEmpty" class="empty-state hidden">暂无文档，点击右上角上传第一份资料。</div>
+        </div>
+      </section>
+    </main>
+
+    <aside id="documentPanel" class="document-panel">
+      <div class="panel-header"><div><h2>文档</h2><span id="documentCount">0 份资料</span></div><button id="closeDocumentsButton" class="mobile-only" type="button">×</button></div>
+      <div class="document-tools">
+        <label class="search-box"><span>⌕</span><input id="documentSearch" type="search" placeholder="搜索文档"></label>
+        <button id="uploadButton" class="upload-button" type="button">＋ 上传</button>
+        <input id="fileInput" type="file" hidden accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.md,.csv">
+      </div>
+      <div class="document-tree">
+        <button id="allDocumentsButton" class="all-documents selected" type="button" aria-expanded="true" title="单击选择全部资料并收起或展开文档列表">
+          <span class="collection-icon"><i></i><i></i><i></i></span>
+          <span><strong>全部资料</strong><small id="allDocumentsMeta">跨文档检索</small></span>
+          <span class="collection-check">✓</span>
+        </button>
+        <div id="documentsBranch" class="documents-branch">
+          <div class="branch-label"><span>已上传资料</span><i></i></div>
+          <div id="documentList" class="document-list"></div>
+        </div>
+      </div>
+
+      <section class="citations-panel">
+        <div class="citations-title"><h3>本次引用</h3><span id="citationCount">0</span></div>
+        <div id="citationList" class="citation-list"><p class="citation-empty">提出问题后，可在这里查看答案对应的原文依据。</p></div>
+      </section>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js?v=20261002-7" defer></script>
+</body>
+</html>

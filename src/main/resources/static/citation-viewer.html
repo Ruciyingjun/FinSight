@@ -1,0 +1,29 @@
+<!-- 引用原文查看页：按文档页码展示解析后的原文，并定位高亮用户双击的引用范围。 -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FinSight 引用原文定位与高亮">
+  <title>引用原文 · FinSight</title>
+  <link rel="stylesheet" href="/citation-viewer.css">
+</head>
+<body>
+  <header class="viewer-header">
+    <div class="brand-mark">F</div>
+    <div class="document-heading">
+      <strong id="documentName">正在加载原文…</strong>
+      <span id="pageMeta">引用定位</span>
+    </div>
+    <a id="originalFileLink" class="original-link" target="_blank" rel="noopener noreferrer">打开原文件</a>
+  </header>
+  <main class="viewer-main">
+    <section class="page-sheet" aria-live="polite">
+      <div class="page-label" id="pageLabel">原文</div>
+      <pre id="pageContent" class="page-content"><span class="loading">正在加载并定位引用…</span></pre>
+    </section>
+  </main>
+  <div class="highlight-legend"><i></i><span>黄色区域为本次引用原文</span></div>
+  <script src="/citation-viewer.js" defer></script>
+</body>
+</html>

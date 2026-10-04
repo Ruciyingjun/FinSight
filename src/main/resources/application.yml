@@ -1,0 +1,63 @@
+# 应用主配置：定义服务、数据库、JPA、上传限制、监控端点和文档存储位置。
+spring:
+  application:
+    name: financial-research
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/financial_research}
+    username: ${DATABASE_USERNAME:financial_research}
+    password: ${DATABASE_PASSWORD:financial_research}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+app:
+  document-processing:
+    workers: ${DOCUMENT_PROCESSING_WORKERS:2}
+    queue-capacity: ${DOCUMENT_PROCESSING_QUEUE_CAPACITY:20}
+  storage:
+    root: ${DOCUMENT_STORAGE_ROOT:./data/documents}
+  chunking:
+    max-characters: ${CHUNK_MAX_CHARACTERS:1000}
+    overlap-characters: ${CHUNK_OVERLAP_CHARACTERS:150}
+  embedding:
+    dimensions: ${EMBEDDING_DIMENSIONS:256}
+    model: ${EMBEDDING_MODEL:local-hashing-v1}
+  retrieval:
+    candidate-multiplier: ${RETRIEVAL_CANDIDATE_MULTIPLIER:4}
+    minimum-candidates: ${RETRIEVAL_MINIMUM_CANDIDATES:20}
+    relative-threshold: ${RETRIEVAL_RELATIVE_THRESHOLD:0.35}
+    absolute-threshold: ${RETRIEVAL_ABSOLUTE_THRESHOLD:0.40}
+    minimum-query-coverage: ${RETRIEVAL_MINIMUM_QUERY_COVERAGE:0.20}
+    maximum-context-characters: ${RETRIEVAL_MAXIMUM_CONTEXT_CHARACTERS:6000}
+  ocr:
+    enabled: ${OCR_ENABLED:false}
+    executable: ${OCR_EXECUTABLE:tesseract}
+    languages: ${OCR_LANGUAGES:chi_sim+eng}
+    dpi: ${OCR_DPI:300}
+    timeout-seconds: ${OCR_TIMEOUT_SECONDS:60}
+    minimum-text-characters: ${OCR_MINIMUM_TEXT_CHARACTERS:20}
+  llm:
+    enabled: ${LLM_ENABLED:false}
+    endpoint: ${LLM_ENDPOINT:https://api.deepseek.com/chat/completions}
+    api-key: ${LLM_API_KEY:${DEEPSEEK_API_KEY:}}
+    model: ${LLM_MODEL:deepseek-flash}
+    timeout-seconds: ${LLM_TIMEOUT_SECONDS:60}
+    max-tokens: ${LLM_MAX_TOKENS:800}
+    temperature: ${LLM_TEMPERATURE:0.1}

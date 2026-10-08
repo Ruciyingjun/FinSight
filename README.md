@@ -2,7 +2,9 @@
 
 # Financial Research RAG
 
-面向金融与保险资料的检索增强生成（RAG）后端服务。
+面向金融与保险资料的检索增强生成（RAG）服务平台。
+<img width="2736" height="1976" alt="236b5bddac29b6a32d4ca94f2f6d610b" src="https://github.com/user-attachments/assets/3547ec41-d0c7-4939-82ca-61dcf56ccf06" />
+
 
 ## 技术栈一览
 
